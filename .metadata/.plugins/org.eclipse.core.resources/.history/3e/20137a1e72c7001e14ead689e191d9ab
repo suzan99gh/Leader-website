@@ -1,0 +1,64 @@
+package mosafer;
+
+import static org.testng.Assert.assertEquals;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class Mosafer extends Parameters {
+
+	@BeforeTest
+	public void MySetUp() {
+		driver.manage().window().maximize();
+		driver.get(URL);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+
+		WebElement popUpScreen = driver.findElement(By.cssSelector(".sc-iBmynh.izXFRL"));
+		if (popUpScreen.isDisplayed()) {
+			driver.findElement(By.className("cta__saudi")).click();
+
+		}
+
+	}
+
+	@Test(priority = 1)
+	public void TestLanguageIsEnglish() {
+		String ExpectedLanaguage = "EN";
+		String ActualLanguage = driver.findElement(By.tagName("html")).getAttribute("lang").toUpperCase();
+		System.out.println(ActualLanguage);
+		assertEquals(ActualLanguage, ExpectedLanaguage);
+	}
+
+	@Test(priority = 2)
+	public void CheekCurrencySAR() {
+		String ActualCurrency = driver.findElement(By.className("sc-dRFtgE")).getText().toUpperCase();
+		System.out.println(ActualCurrency);
+		String ExpectedCurrency = "SAR";
+		assertEquals(ActualCurrency, ExpectedCurrency);
+	}
+
+	@Test(priority = 3)
+	public void CheckContactNumber() {
+		String ExpectedNumber = "+966554400000";
+		String actualNumber = driver.findElement(By.tagName("strong")).getText();
+		System.out.println(actualNumber);
+
+		assertEquals(ExpectedNumber, actualNumber);
+	}
+
+	@Test(priority = 4)
+	public void QetafLogo() {
+		WebElement theFooter = driver.findElement(By.tagName("footer"));
+		WebElement QetafLogo = theFooter.findElement(By.cssSelector(".sc-bdVaJa.bxRSiR.sc-ekulBa.eYboXF"));
+		assertEquals(QetafLogo.isDisplayed(), true);
+	}
+	@Test(priority = 5)
+	public void CheckIfTheeHotelTabNotSelected() {
+		String HotelTabStatuse =driver.findElement(By.id("uncontrolled-tab-example-tab-hotels")).getAttribute("aria-selected") ;
+	System.out.println(HotelTabStatuse);
+	}
+}

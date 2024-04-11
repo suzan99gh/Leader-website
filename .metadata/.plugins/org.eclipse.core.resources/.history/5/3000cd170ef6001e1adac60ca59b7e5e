@@ -1,0 +1,26 @@
+package Workspace;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class LeadersTest extends Parameters {
+	@BeforeTest
+	public void MySetup() {
+		driver.get(URl);
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+
+	}
+
+@Test
+public void firstTest () {
+	 WebElement mainProduct = driver.findElement(By.id("main"));
+	 int productCount =mainProduct.findElements(By.className("product-inner")).size();
+	 System.out.println(productCount);
+}
+}
